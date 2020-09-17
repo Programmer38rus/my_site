@@ -5,7 +5,7 @@ class Author(models.Model):
     full_name = models.TextField()
     birth_year = models.SmallIntegerField()
     country = models.CharField(max_length=2)
-    copy_count =  models.SmallIntegerField(default=1)
+    # copy_count =  models.SmallIntegerField(default=1)
     
     def __str__(self):
         return self.full_name
