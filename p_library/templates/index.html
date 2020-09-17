@@ -1,6 +1,7 @@
 Добро пожаловать в {{title | upper }}. <br>
 Тут собрано {{ books | length }} книг из моей личной коллекции.
 
+<br> {{books}} <br>
 
 <table border="1" >
 	{% for book in books %}
@@ -14,10 +15,10 @@
 		<td>{{ book.author.country }}</td>
 	</tr>
 	{% endfor %}
-</table>
+</table><br>
 
 {% for i in list_num %}
-	{% if i % 3 == 0 %}
+	{% if i|divisibleby:"3" %}
 		{{i}}
 	{% endif %}
 {% endfor %}

@@ -6,6 +6,9 @@ class Author(models.Model):
     birth_year = models.SmallIntegerField()
     country = models.CharField(max_length=2)
     copy_count =  models.SmallIntegerField(default=1)
+    
+    def __str__(self):
+        return self.full_name
 
 class Book(models.Model):
     ISBN = models.CharField(max_length=13)
@@ -16,5 +19,7 @@ class Book(models.Model):
     copy_count =  models.SmallIntegerField(default=1)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
 
 
