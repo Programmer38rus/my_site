@@ -11,7 +11,7 @@
 		<td>{{ book.copy_count }}</td>
 		<td>{{ book.description }}</td>
 		<td>{{ book.year_release }}</td>
-		<td>{{ book.author.full__name }}</td>
+		<td>{{ book.author.full_name }}</td>
 		<td>{{ book.author.country }}</td>
 	</tr>
 	{% endfor %}
@@ -28,5 +28,9 @@
 Самая недорогая книга в библиотеке {{book_min.price}} - {{book_min.copy_count}} шт.<br>
 
 Стоимость - {{book_summ_if}}<br>
-{{vot}}
+{{vot}}<br>
+{{vot2}}<br>
+{{vot3}}<br>
+{{vot4}}<br>
+{{vot5}}<br>
 {% comment %} Стоимость всех импортных книг {{}} {% endcomment %}

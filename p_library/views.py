@@ -21,12 +21,19 @@ def index(request):
     books_count = Book.objects.all().count()
     books = Book.objects.all()
 
+    books_no_ru = sum([book.price*book.copy_count for book in books if book.author.country != "RU"])
+    books_pushkin = sum([book.price*book.copy_count for book in books if book.author.full_name == "Пушкин Александр Сергеевич"])
+    books_duglas = sum([book.price for book in books if book.author.full_name == "Douglas Adams"])
+    books_not_one = sum([book.price*book.copy_count for book in books if book.copy_count != 1])
+
     new = sum([book.price for book in books if book.copy_count > 1])
 
     for book in books:
+
         if book.price > book_max_price:
             book_max_price = book.price
-        dict_author[book.author.full_name] = book.price * book.copy_count     
+        dict_author[book.author.full_name] = book.price * book.copy_count    
+
     max_all_price = sum([v for k, v in dict_author.items()])
     book_min_price = book_max_price
 
@@ -43,7 +50,11 @@ def index(request):
         "book_max_price": book_max_price,
         "book_min": book_min,
         "book_summ_if": new,
-        "vot": max_all_price
+        "vot": dict_author,
+        "vot2": books_no_ru,
+        "vot3": books_pushkin, 
+        "vot4": books_duglas,
+        "vot5": books_not_one,
         }
 
     return HttpResponse(template.render(biblio_data))
