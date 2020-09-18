@@ -15,6 +15,7 @@ def index(request):
     book_max_price = 0
     book_min_price = 0
     book_min = None 
+    dict_author = {}
 
     template = loader.get_template('index.html')
     books_count = Book.objects.all().count()
@@ -25,7 +26,10 @@ def index(request):
     for book in books:
         if book.price > book_max_price:
             book_max_price = book.price
+        dict_author[book.author.full_name] = book.price * book.copy_count     
+    max_all_price = sum([v for k, v in dict_author.items()])
     book_min_price = book_max_price
+
     for book in books:
         if book.price < book_min_price:
             book_min_price = book.price
@@ -39,6 +43,7 @@ def index(request):
         "book_max_price": book_max_price,
         "book_min": book_min,
         "book_summ_if": new,
+        "vot": max_all_price
         }
 
     return HttpResponse(template.render(biblio_data))

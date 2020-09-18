@@ -8,7 +8,7 @@
 	<tr>
 		<td>{{ forloop.counter }}</td>
 		<td>{{ book.title }}</td>
-		<td>{{ book.ISBN }}</td>
+		<td>{{ book.copy_count }}</td>
 		<td>{{ book.description }}</td>
 		<td>{{ book.year_release }}</td>
 		<td>{{ book.author.full__name }}</td>
@@ -27,5 +27,6 @@
 Самая дорогая книга в библиотеке - {{book_max_price}} <br>
 Самая недорогая книга в библиотеке {{book_min.price}} - {{book_min.copy_count}} шт.<br>
 
-Стоимость - {{book_summ_if}}
+Стоимость - {{book_summ_if}}<br>
+{{vot}}
 {% comment %} Стоимость всех импортных книг {{}} {% endcomment %}
