@@ -1,7 +1,7 @@
 Добро пожаловать в {{title | upper }}. <br>
 Тут собрано {{ books | length }} книг из моей личной коллекции.
 
-<br> {{books}} <br>
+{% comment %} <br> {{books}} <br> {% endcomment %}
 
 <table border="1" >
 	{% for book in books %}
@@ -23,4 +23,9 @@
 	{% endif %}
 {% endfor %}
 <br><br>
-{{work}}
+
+Самая дорогая книга в библиотеке - {{book_max_price}} <br>
+Самая недорогая книга в библиотеке {{book_min.price}} - {{book_min.copy_count}} шт.<br>
+
+Стоимость - {{book_summ_if}}
+{% comment %} Стоимость всех импортных книг {{}} {% endcomment %}
