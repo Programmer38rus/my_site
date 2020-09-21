@@ -17,7 +17,7 @@ class Book(models.Model):
     year_release = models.SmallIntegerField()
     price = models.FloatField()
     copy_count =  models.SmallIntegerField(default=1)
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name="Вербос_нэйм")
 
     def __str__(self):
         return self.title

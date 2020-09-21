@@ -21,13 +21,33 @@ def index(request):
     books_count = Book.objects.all().count()
     books = Book.objects.all()
 
-    books_no_ru = sum([book.price*book.copy_count for book in books if book.author.country != "RU"])
-    books_pushkin = sum([book.price*book.copy_count for book in books if book.author.full_name == "Пушкин Александр Сергеевич"])
-    books_duglas = sum([book.price for book in books if book.author.full_name == "Douglas Adams"])
-    books_not_one = sum([book.price*book.copy_count for book in books if book.copy_count != 1])
+    books_no_ru = 0
+    books_pushkin = 0
+    books_duglas = 0
+    books_not_one = 0
+    new = 0
 
-    new = sum([book.price for book in books if book.copy_count > 1])
+    for book in books:
+        if book.author.country != "RU":
+            books_no_ru += book.price * book.copy_count
+        if book.author.full_name == "Пушкин Александр Сергеевич":
+          books_pushkin += book.price * book.copy_count
+        if book.author.full_name == "Douglas Adams":
+          books_duglas += book.price
+        if book.copy_count != 1:
+          books_not_one += book.price * book.copy_count
+        if book.copy_count > 1:
+          new += book.price
 
+    # books_no_ru = sum([book.price*book.copy_count for book in books if book.author.country != "RU"])
+    # books_pushkin = sum([book.price*book.copy_count for book in books if book.author.full_name == "Пушкин Александр Сергеевич"])
+    # books_duglas = sum([book.price for book in books if book.author.full_name == "Douglas Adams"])
+    # books_not_one = sum([book.price*book.copy_count for book in books if book.copy_count != 1])
+
+    # new = sum([book.price for book in books if book.copy_count > 1])
+
+
+    # вычисляем максимальну и минимальную стоимость книги.
     for book in books:
 
         if book.price > book_max_price:
