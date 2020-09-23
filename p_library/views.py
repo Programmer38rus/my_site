@@ -64,6 +64,7 @@ def index(request):
             book_min = book
 
     list_num = [i for i in range(1, 101)]
+
     biblio_data = {
         "title": "мою библиотеку", 
         "books": books,

@@ -22,4 +22,6 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-
+class PublishingHouse(models.Model):
+    pub_house_name = models.TextField()
+    
