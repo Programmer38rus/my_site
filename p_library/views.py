@@ -12,6 +12,11 @@ def books_list(request):
        list.append(i.title) 
     return HttpResponse(list)
 
+def publishing_house(request):
+  template = loader.get_template('publishinghouse.html')
+  
+  return HttpResponse(template)
+
 def index(request):
     book_max_price = 0
     book_min_price = 0
