@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from p_library.models import Author, Book
+from p_library.models import Author, Book, PublishingHouse
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import redirect
