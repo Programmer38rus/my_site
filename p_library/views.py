@@ -15,7 +15,12 @@ def books_list(request):
 def publishing_house(request):
   template = loader.get_template('publishinghouse.html')
   
-  return HttpResponse(template)
+  pub_houses = PublishingHouse.objects.all()
+
+  data = {
+    "pub_houses": pub_houses
+  }
+  return HttpResponse(template.render(data, request))
 
 def index(request):
     book_max_price = 0
