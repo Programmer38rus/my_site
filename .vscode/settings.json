@@ -1,4 +1,4 @@
 {
     "python.venvPath": "C:/env",
-    "python.pythonPath": "C:\\env\\Scripts\\python.exe"
+    "python.pythonPath": "C:\\env\\django_test\\Scripts\\python.exe"
 }
