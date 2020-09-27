@@ -23,7 +23,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(PublishingHouse)
 class PubHouseAdmin(admin.ModelAdmin):
-
     list_display=('full_name', 'count_book')
+    list_filter=('full_name',)
     # fields = (('full_name', 'count_book'), )
     

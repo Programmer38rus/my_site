@@ -74,7 +74,7 @@ def index(request):
             book_min = book
 
     list_num = [i for i in range(1, 101)]
-
+    
     biblio_data = {
         "title": "мою библиотеку", 
         "books": books,
@@ -87,6 +87,7 @@ def index(request):
         "vot3": books_pushkin, 
         "vot4": books_duglas,
         "vot5": books_not_one,
+        "force": [1,2,3,4,5],
         }
 
     return HttpResponse(template.render(biblio_data, request))
