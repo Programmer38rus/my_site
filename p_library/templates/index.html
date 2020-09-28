@@ -2,7 +2,13 @@
 Тут собрано {{ books | length }} книг из моей личной коллекции.
 <br>
 <br>
-Конструкция с фильтром {{force|slice:"-1::"}}
+Конструкция с фильтром {{force|slice:"::"}}
+{#{% for i in pub_houses %}#}
+{#    <h1>{{ i }}</h1>#}
+{#        {% for ii in i.books.all %}#}
+{#            <p>{{ ii.title }}</p>#}
+{#        {% endfor %}#}
+{#{% endfor %}#}
 
 <br>
 <br>
