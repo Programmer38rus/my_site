@@ -7,7 +7,7 @@ class BookAdmin(admin.ModelAdmin):
 
     @staticmethod
     def author_full_name(obj):
-        return obj.author.full_name
+        return obj.author
 
     # @staticmethod
     # def publishing_house_name(obj):

@@ -35,8 +35,7 @@ def index(request):
     books_count = Book.objects.all().count()
     books = Book.objects.all()
 
-    pub_houses = PublishingHouse.objects.all()
-
+    # pub_houses = PublishingHouse.objects.all()
     books_no_ru = 0
     books_pushkin = 0
     books_duglas = 0
