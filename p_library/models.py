@@ -26,7 +26,7 @@ class Book(models.Model):
     year_release = models.SmallIntegerField()
     price = models.FloatField()
     copy_count = models.SmallIntegerField(default=1)
-    author = models.ManyToManyField(Author, verbose_name="Вербос_нэйм")
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, verbose_name="Вербос_нэйм")
     publishing_house = models.ForeignKey(PublishingHouse, on_delete=models.CASCADE, verbose_name="Издательство",
                                          null=True, related_name="books", blank=True)
 
