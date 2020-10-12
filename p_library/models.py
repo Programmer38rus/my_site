@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class Author(models.Model):
-    full_name = models.TextField()
+    full_name = models.CharField(max_length=100)
     birth_year = models.SmallIntegerField()
     country = models.CharField(max_length=2)
 
