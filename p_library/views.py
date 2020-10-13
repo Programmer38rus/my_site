@@ -8,11 +8,28 @@ from p_library.forms import AuthorForm
 from django.views.generic import CreateView, ListView
 from django.urls import reverse_lazy
 
+from django.forms import formset_factory
 # Create your views here.
+def author_create_many(request):
+    AuthorFormSet = formset_factory(AuthorForm, extra=2)
+    #  Первым делом, получим класс, который будет создавать наши формы. Обратите внимание на параметр `extra`, в данном случае он равен двум, это значит, что на странице с несколькими формами изначально будет появляться 2 формы создания авторов.
+    if request.method == 'POST':  # Наш обработчик будет обрабатывать и GET и POST запросы. POST запрос будет содержать в себе уже заполненные данные формы
+        author_formset = AuthorFormSet(request.POST, request.FILES,
+                                       prefix='authors')  # Здесь мы заполняем формы формсета теми данными, которые пришли в запросе. Обратите внимание на параметр `prefix`. Мы можем иметь на странице не только несколько форм, но и разных формсетов, этот параметр позволяет их отличать в запросе.
+        if author_formset.is_valid():  # Проверяем, валидны ли данные формы
+            for author_form in author_formset:
+                author_form.save()  # Сохраним каждую форму в формсете
+            return HttpResponseRedirect(
+                reverse_lazy('p_library:author_list'))  # После чего, переадресуем браузер на список всех авторов.
+    else:  # Если обработчик получил GET запрос, значит в ответ нужно просто "нарисовать" формы.
+        author_formset = AuthorFormSet(
+            prefix='authors')  # Инициализируем формсет и ниже передаём его в контекст шаблона.
+    return render(request, 'manage_authors.html', {'author_formset': author_formset})
+
 class AuthorEdit(CreateView):
     model = Author
     form_class = AuthorForm
-    success_url = reverse_lazy('author_list')
+    success_url = reverse_lazy('p_library:author_list')
     template_name = 'author_edit.html'
 
 class AuthorList(ListView):
@@ -90,7 +107,7 @@ def index(request):
             book_min = book
 
     list_num = [i for i in range(1, 101)]
-
+    pub_houses = PublishingHouse.objects.all()
     biblio_data = {
         "title": "мою библиотеку",
         "books": books,

@@ -5,7 +5,7 @@
     <title>Список авторов</title>
 </head>
 <body>
-    <a href="/author/create">Создать</a>
+    <a class="btn btn-primary mt-2" href="/author/create">Создать</a>
     <ul>
         {% for author in object_list %}
             <li>{{ author.full_name }}</li>

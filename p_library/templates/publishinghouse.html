@@ -7,20 +7,30 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
 </head>
 <body class="container">
-    <div class="d-flex justify-content-center">
-        <h1 class="justify-content-center">ИЗДАТЕЛЬСТВА</h1>
+    <div class="row">
+        <div class="col-8">
+            <div class="">
+                <h1 class="">ИЗДАТЕЛЬСТВА</h1>
+            </div>
+            {% for pub_house in pub_houses %}
+                <div class="">
+                    <ul class="list-group mt-3">
+                        <li class="list-group-item list-group-item-danger font-weight-bold">
+                        {{ pub_house.full_name }}
+                            {% for book in pub_house.books.all %}
+                            <ul class="list-group">
+                                <li class="list-group-item font-weight-normal">{{book.title}}</li>
+                            </ul>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-4">
+           {% include "author_list.html"  %}
+        </div>
     </div>
-    {% for pub_house in pub_houses %}
-        <ul class="list-group ml-5 mt-3">
-            <li class="list-group-item list-group-item-danger font-weight-bold">
-            {{ pub_house.full_name }}
-                {% for book in pub_house.books.all %}
-                <ul class="list-group"> 
-                    <li class="list-group-item font-weight-normal">{{book.title}}</li>
-                </ul>
-                {% endfor %}
-            </li>
-        </ul>
-    {% endfor %}
 </body>
 </html>
