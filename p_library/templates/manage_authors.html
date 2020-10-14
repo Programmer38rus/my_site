@@ -13,6 +13,12 @@
 
 <br>
 {% endfor %}
+{% csrf_token %}
+{{ book_formset.management_form }}
+{% for form in book_formset %}
+{{ form.as_ul }}
+<br>
+{% endfor %}
 <input type="submit" value="Сохранить"/>
 </form>
 </body>

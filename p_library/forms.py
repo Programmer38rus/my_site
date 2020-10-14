@@ -1,6 +1,5 @@
 from django import forms
-from django.forms import formset_factory
-from p_library.models import Author
+from p_library.models import Author, Book
 
 class AuthorForm(forms.ModelForm):
 
@@ -10,4 +9,8 @@ class AuthorForm(forms.ModelForm):
         model = Author
         fields = '__all__'
 
-AuthorFormSet = formset_factory(AuthorForm)
+class BookForm(forms.ModelForm):
+
+    class Meta:
+        model = Book
+        fields = '__all__'

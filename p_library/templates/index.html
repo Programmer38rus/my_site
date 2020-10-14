@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+<h1 class="display-4">Полигон для исследований</h1>
+<br><br><br>
+<div class="container">
 Добро пожаловать в {{title | upper }}. <br>
 Тут собрано {{ books | length }} книг из моей личной коллекции.
 <br>
@@ -5,21 +9,22 @@
 
 Конструкция с фильтром {{force|first}}
 
-{#{% for i in pub_houses %}#}
-{#    <h1>{{ i }}</h1>#}
-{#        {% for ii in i.books.all %}#}
-{#            <p>{{ ii.title }}</p>#}
-{#        {% endfor %}#}
-{#{% endfor %}#}
+{% for i in pub_houses %}
+    <h1>{{ i }}</h1>
+        {% for ii in i.books.all %}
+            <p>{{ ii.title }}</p>
+        {% endfor %}
+{% endfor %}
 
 <br>
 <br>
 
 {% comment %} <br> {{books}} <br> {% endcomment %}
 
-<table border="1" >
+<table border="1" class="table-dark">
 	{% for book in books %}
-	<tr>
+    <tbody>
+	<tr scope="row">
 		<td>{{ forloop.counter }}</td>
 		<td>{{ book.title }}</td>
 		<td>{{ book.description }}</td>
@@ -40,6 +45,7 @@
 			</form>
 		</td>
 	</tr>
+    </tbody>
 	{% endfor %}
 </table><br>
 
@@ -60,3 +66,4 @@
 {{vot4}}<br>
 {{vot5}}<br>
 {% comment %} Стоимость всех импортных книг {{}} {% endcomment %}
+</div>
