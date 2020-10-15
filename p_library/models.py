@@ -41,6 +41,12 @@ class Book(models.Model):
         return self.title
 
 
+class Friend(models.Model):
+    full_name = models.CharField(max_length=99, verbose_name="Имя")
+    books = models.ManyToManyField(Book, verbose_name="Взяли в долг")
+    def __str__(self):
+        return self.full_name
+
 class Inspiration(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
