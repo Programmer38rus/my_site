@@ -144,7 +144,7 @@ def index(request):
         "vot3": books_pushkin,
         "vot4": books_duglas,
         "vot5": books_not_one,
-        "force": [1, 2, 3, 4, 5],
+        "force_django": [1, 2, 3, 4, 5],
         "pub_houses": pub_houses,
     }
 
