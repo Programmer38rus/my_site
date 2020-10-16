@@ -6,7 +6,7 @@ from django.template import loader
 from django.shortcuts import redirect
 
 from p_library.forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 from django.forms import formset_factory
@@ -47,6 +47,18 @@ class AuthorList(ListView):
     model = Author
     template_name = 'author_list.html'
 
+class AuthorUpdate(UpdateView):
+    model = Author
+    form_class = AuthorForm
+    success_url = reverse_lazy('p_library:author_list')
+    # fields = ['full_name', 'birth_year', 'country']
+    template_name = 'author_edit.html'
+
+class AuthorDelete(DeleteView):
+    model = Author
+    form_class = AuthorForm
+    success_url = reverse_lazy('p_library:author_list')
+    template_name = 'author_delete.html'
 
 def books_list(request):
     list = []
