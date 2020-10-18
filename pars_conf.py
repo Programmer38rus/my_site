@@ -30,7 +30,8 @@ class Circle:
 
     @area.setter
     def area(self, value):
-        self.radius = math.sqrt(value / 1)
+        self.radius = math.sqrt(value / 3.1415)
+        # self.radius = value
 
         print(self.radius, value)
 
