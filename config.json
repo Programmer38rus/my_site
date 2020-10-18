@@ -1,0 +1,15 @@
+{
+    "server": {
+        "host": "127.0.0.1",
+        "port": 8080
+    },
+    "static_dir": "/var/www/my_app/asset-v1:SkillFactory+PWS-2+28JUN2019+type@asset+block@",
+    "templates_path": "/var/www/my_app/templates/",
+    "database": {
+        "host": "127.0.0.1",
+        "port": 5432,
+        "user": "admin",
+        "password": "1234",
+        "name": "my_db"
+    }
+}
