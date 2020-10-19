@@ -60,6 +60,18 @@ class AuthorDelete(DeleteView):
     success_url = reverse_lazy('p_library:author_list')
     template_name = 'author_delete.html'
 
+class AuthorUpdate(UpdateView):
+    model = Author
+    form_class = AuthorForm
+    success_url = reverse_lazy('p_library:author_list')
+    template_name = 'author_edit.html'
+
+class AuthorDelete(DeleteView):
+    model = Author
+    success_url = reverse_lazy('p_library:author_list')
+    template_name = 'author_delete.html'
+
+
 def books_list(request):
     list = []
     books = Book.objects.all()
