@@ -6,12 +6,16 @@ from django.template import loader
 from django.shortcuts import redirect
 
 from p_library.forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, View
 from django.urls import reverse_lazy
 
 from django.forms import formset_factory
 
+# Импортируем class-based views
+from django.views.generic.base import TemplateView
 
+# Импорт для PUT запросов
+import json
 # Create your views here.
 def books_author_create_many(request):
     AuthorFormSet = formset_factory(AuthorForm, extra=2)
@@ -197,3 +201,40 @@ def book_decrement(request):
         return redirect('/index/')
     else:
         return redirect('/index/')
+
+class HomePageView(TemplateView):
+
+    template_name = "class-base.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["full_name"] = Author.objects.all()
+        print(context)
+        return context
+
+# Создаем классы Class-base view для публикаций
+
+class PublisherList(ListView):
+    model = PublishingHouse
+    template_name = 'publishinghouse_list.html'
+
+    def put(self, request):
+        data = json.loads(request.body)
+        publisher = self.model(**data)
+        publisher.save()
+
+class PublisherList2(View):
+    model = PublishingHouse
+
+    def get(self):
+        publishers_list = self.model.objects.all()
+        return publishers_list
+
+    def put(self, request):
+        data = json.loads(request.body)
+        publisher = self.model(**data)
+        publisher.save()
+
+# через DetailView
+
+class PublisherList

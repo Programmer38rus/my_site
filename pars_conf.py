@@ -3,31 +3,29 @@ import math
 import os
 
 class Config:
-    ENV_VAR_NAME = "HOMEPATH"
+    ENV_VAR_NAME = "NEW_VAR"
 
     def __init__(self, config_path):
         self.path = config_path
-        # self.path = "config.json"
         self._data = {}
         self.read
 
     @classmethod
     def load_from_env(cls):
+        """
+        Обращаемся к переменным среды и отправляем полученный путь
+        в класс Config
+        :return:
+        """
         config_path = os.environ[cls.ENV_VAR_NAME]
-        print(config_path)
-        return cls('config.json')
-
-        # a =  os.environ
-        # for k, v in a.items():
-        #     print(k + " " + v)
-
-        # a = cls('config.json')
-        # print(a.read())
-        # print(a)
+        return cls(config_path)
 
     @property
     def read(self):
-        # print(self.path)
+        """
+        Функция выводит прочитаный json файл в виде словаря _data
+        :return:
+        """
         with open(self.path) as fd:
             self._data = json.load(fd)
             return self._data
@@ -37,20 +35,34 @@ class Config:
 
     @property
     def db_connection_uri(self):
+        """
+        Генерирует и выводит строку из конфиг файла
+        """
         section = self._data["database"]
         return 'postgresql://{user}:{password}@{host}:{port}/{name}'.format(**section)
 
-    # @staticmethod
-    # def list_static(static_path):
-    #     ret = []
-    #     for path in os.listdir(static_path):
-    #         _, ext = os.path.splitext(path)
-    #         if ext in ['.js', "http", ".png"]:
-    #             ret.append(path)
-    #     return ret
-
+    @staticmethod
+    def list_static(static_path):
+        """
+        отображает файлы с указаным именем
+        :param static_path:
+        :return:
+        """
+        ret = []
+        for path in os.listdir(static_path):
+            # print(path)
+            _, ext = os.path.splitext(path)
+            if ext in ['.js', "http", ".json"]:
+                ret.append(path)
+        return ret
 
 cfg = Config.load_from_env()
+static_path = cfg['static_dir']
+
+print(cfg.list_static(static_path))
+print(cfg["server"])
+print(cfg.db_connection_uri)
+
 # cfg.read
 # print(cfg['server']['port'])
 
