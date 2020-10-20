@@ -209,8 +209,8 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["full_name"] = Author.objects.all()
-        print(context)
         return context
+
 
 # Создаем классы Class-base view для публикаций
 
@@ -222,6 +222,7 @@ class PublisherList(ListView):
         data = json.loads(request.body)
         publisher = self.model(**data)
         publisher.save()
+    context_object_name = 'new'
 
 class PublisherList2(View):
     model = PublishingHouse
@@ -237,4 +238,4 @@ class PublisherList2(View):
 
 # через DetailView
 
-class PublisherList
+# class PublisherList

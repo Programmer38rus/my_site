@@ -11,6 +11,6 @@ urlpatterns = [
     path('authors/<int:pk>/delete/', AuthorDelete.as_view(), name='author_delete'),
     # path('author/create_many', author_create_many, name='author_create_many'),
     path('author_book/create_many', books_author_create_many, name='books_author_create_many'),
-    path('class_test/', HomePageView.as_view(), name="class-base"),
+    path('class_test', HomePageView.as_view()),
     path('publisher', PublisherList.as_view())
 ]
