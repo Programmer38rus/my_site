@@ -6,7 +6,7 @@ from django.template import loader
 from django.shortcuts import redirect
 
 from p_library.forms import AuthorForm, BookForm
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView, View
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, View, DetailView, FormView
 from django.urls import reverse_lazy
 
 from django.forms import formset_factory
@@ -16,6 +16,9 @@ from django.views.generic.base import TemplateView
 
 # Импорт для PUT запросов
 import json
+
+from django.utils import timezone
+
 # Create your views here.
 def books_author_create_many(request):
     AuthorFormSet = formset_factory(AuthorForm, extra=2)
@@ -25,7 +28,7 @@ def books_author_create_many(request):
         author_formset = AuthorFormSet(request.POST, request.FILES, prefix='authors')  # Здесь мы заполняем формы формсета теми данными, которые пришли в запросе. Обратите внимание на параметр `prefix`. Мы можем иметь на странице не только несколько форм, но и разных формсетов, этот параметр позволяет их отличать в запросе.
         book_formset = BookFormSet(request.POST, request.FILES, prefix='books')
 
-        if author_formset.is_valid() and book_formset.is_valid():  # Проверяем, валидны ли данные формы
+        if author_formset.is_valid() or book_formset.is_valid():  # Проверяем, валидны ли данные формы
             for author_form in author_formset:
                 author_form.save()  # Сохраним каждую форму в формсете
             for book_form in book_formset:
@@ -37,8 +40,17 @@ def books_author_create_many(request):
         book_formset = BookFormSet(prefix='books')
 
     return render(request, 'manage_authors.html', {'author_formset': author_formset,
-                                                   'book_formset': book_formset})
+                                                   # 'book_formset': book_formset
+                                                   })
 
+class TestFormView(FormView):
+    template_name = 'test_form.html'
+    form_class = AuthorForm
+    success_url = '/authors/'
+
+    def form_valid(self, form):
+        form.send_message()
+        return super().form_valid(form)
 
 class AuthorEdit(CreateView):
     model = Author
@@ -217,7 +229,7 @@ class HomePageView(TemplateView):
 class PublisherList(ListView):
     model = PublishingHouse
     template_name = 'publishinghouse_list.html'
-
+    paginate_by = 1 # Количество выводов элементов
     def put(self, request):
         data = json.loads(request.body)
         publisher = self.model(**data)
@@ -238,4 +250,10 @@ class PublisherList2(View):
 
 # через DetailView
 
-# class PublisherList
+class PublisherList3(DetailView):
+    model = Author
+    # context_object_name = "new_name"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context

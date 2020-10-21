@@ -9,6 +9,9 @@ class AuthorForm(forms.ModelForm):
         model = Author
         fields = '__all__'
 
+    def send_message(self):
+        print(self)
+
 class BookForm(forms.ModelForm):
 
     class Meta:
