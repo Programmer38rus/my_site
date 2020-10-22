@@ -6,6 +6,7 @@ class Author(models.Model):
     full_name = models.TextField(max_length=100)
     birth_year = models.SmallIntegerField()
     country = models.CharField(max_length=2)
+    face = models.ImageField(upload_to='face_author/%M/%S', blank=True)
 
     def __str__(self):
         return  f"{self.full_name} - {self.birth_year}"

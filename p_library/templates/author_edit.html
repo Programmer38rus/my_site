@@ -8,7 +8,6 @@
     <title>Форма создания и редактирования Авторов</title>
 </head>
 <body>
-{% block edit %}
     <div id="container">
         <form id="form" method="post">
             {% csrf_token %}
@@ -23,6 +22,7 @@
             </div>
         </form>
     </div>
+{% block  list %}
 {% endblock %}
 </body>
 </html>
