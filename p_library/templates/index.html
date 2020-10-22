@@ -1,5 +1,8 @@
-<link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+{% load static %}
+<link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+
 <h1 class="display-4">Полигон для исследований</h1>
+
 <br><br><br>
 <div class="container">
 Добро пожаловать в {{title | upper }}. <br>
@@ -66,4 +69,18 @@
 {{vot4}}<br>
 {{vot5}}<br>
 {% comment %} Стоимость всех импортных книг {{}} {% endcomment %}
+</div>
+<div class="container page-header">
+    <h1><a href="/">My personal blog</a></h1>
+</div>
+<div class="content container">
+    <div class="row mt-5">
+        <div class="col-8">
+            {% lorem %}
+        </div>
+        <div class="col-4">
+        {% block content %}
+        {% endblock %}
+        </div>
+    </div>
 </div>

@@ -1,0 +1,34 @@
+label {
+    font-family: Arimo;
+    font-weight: lighter;
+}
+#container {
+    display: flex;
+    justify-content: center;
+    padding-top: 10%;
+
+}
+#form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+#button-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    background-color: #ff8a6b;
+    font-weight: bold;
+    color: white;
+    border: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px 20px;
+    margin-top: 10px;
+    outline: none;
+}
+.button2 {
+    border-radius: 20px 10px;
+}

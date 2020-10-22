@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path
 from .views import AuthorEdit, AuthorList, books_author_create_many, AuthorUpdate, AuthorDelete, HomePageView, \
-    PublisherList, PublisherList3, TestFormView
+    PublisherList, PublisherList3, TestFormView, base_view
 
 app_name = 'p_library'
 
@@ -16,4 +16,5 @@ urlpatterns = [
     path('publisher', PublisherList.as_view()),
     # path('<name:name>/', PublisherList3.as_view(), name="publisher-detail"),
     path('test_form', TestFormView.as_view()),
+    path('base', base_view)
 ]

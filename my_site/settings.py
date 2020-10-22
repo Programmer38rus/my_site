@@ -119,3 +119,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# STATIC_URL = '/asset-v1:SkillFactory+PWS-2+28JUN2019+type@asset+block@'
+
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]

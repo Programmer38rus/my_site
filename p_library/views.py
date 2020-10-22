@@ -20,6 +20,12 @@ import json
 from django.utils import timezone
 
 # Create your views here.
+
+def base_view(request):
+    template = loader.get_template('base.html')
+    data = {}
+    return HttpResponse(template.render(data, request))
+
 def books_author_create_many(request):
     AuthorFormSet = formset_factory(AuthorForm, extra=2)
     BookFormSet = formset_factory(BookForm, extra=2)
