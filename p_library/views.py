@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from p_library.models import Author, Book, PublishingHouse
+from p_library.models import Author, Book, PublishingHouse, Friend
 from django.http import HttpResponse
 from django.http.response import HttpResponseRedirect
 from django.template import loader
@@ -48,6 +48,11 @@ def books_author_create_many(request):
     return render(request, 'manage_authors.html', {'author_formset': author_formset,
                                                    # 'book_formset': book_formset
                                                    })
+
+class FriendsList(ListView):
+    model = Friend
+    context_object_name = 'friends'
+    template_name = 'list_friends.html'
 
 class TestFormView(FormView):
     template_name = 'test_form.html'

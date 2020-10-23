@@ -9,7 +9,7 @@ class Author(models.Model):
     face = models.ImageField(upload_to='face_author/%M/%S', blank=True)
 
     def __str__(self):
-        return  f"{self.full_name} - {self.birth_year}"
+        return f"{self.full_name} - {self.birth_year}"
 
 
 class PublishingHouse(models.Model):
@@ -45,8 +45,10 @@ class Book(models.Model):
 class Friend(models.Model):
     full_name = models.CharField(max_length=99, verbose_name="Имя")
     books = models.ManyToManyField(Book, verbose_name="Взяли в долг")
+
     def __str__(self):
         return self.full_name
+
 
 class Inspiration(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
