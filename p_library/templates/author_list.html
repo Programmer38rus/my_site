@@ -1,6 +1,5 @@
-{% extends 'author_edit.html' %}
-
-{% block list %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,9 +10,9 @@
     <a class="btn btn-primary mt-2" href="/author/create">Создать</a>
     <ul>
         {% for author in object_list %}
-            <li><a href="{{ author.id }}">{{ author.full_name }}</a></li>
+
+            <li class="list-unstyled"><img src="{{ author.face }}"><a href="{{ author.id }}"> {{ author.full_name }}</a></li>
         {% endfor %}
     </ul>
 </body>
 </html>
-{% endblock %}

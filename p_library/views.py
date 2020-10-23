@@ -19,6 +19,7 @@ import json
 
 from django.utils import timezone
 
+
 # Create your views here.
 
 def base_view(request):
@@ -26,12 +27,14 @@ def base_view(request):
     data = {}
     return HttpResponse(template.render(data, request))
 
+
 def books_author_create_many(request):
     AuthorFormSet = formset_factory(AuthorForm, extra=2)
     BookFormSet = formset_factory(BookForm, extra=2)
     #  Первым делом, получим класс, который будет создавать наши формы. Обратите внимание на параметр `extra`, в данном случае он равен двум, это значит, что на странице с несколькими формами изначально будет появляться 2 формы создания авторов.
     if request.method == 'POST':  # Наш обработчик будет обрабатывать и GET и POST запросы. POST запрос будет содержать в себе уже заполненные данные формы
-        author_formset = AuthorFormSet(request.POST, request.FILES, prefix='authors')  # Здесь мы заполняем формы формсета теми данными, которые пришли в запросе. Обратите внимание на параметр `prefix`. Мы можем иметь на странице не только несколько форм, но и разных формсетов, этот параметр позволяет их отличать в запросе.
+        author_formset = AuthorFormSet(request.POST, request.FILES,
+                                       prefix='authors')  # Здесь мы заполняем формы формсета теми данными, которые пришли в запросе. Обратите внимание на параметр `prefix`. Мы можем иметь на странице не только несколько форм, но и разных формсетов, этот параметр позволяет их отличать в запросе.
         book_formset = BookFormSet(request.POST, request.FILES, prefix='books')
 
         if author_formset.is_valid() or book_formset.is_valid():  # Проверяем, валидны ли данные формы
@@ -42,17 +45,20 @@ def books_author_create_many(request):
             return HttpResponseRedirect(
                 reverse_lazy('p_library:author_list'))  # После чего, переадресуем браузер на список всех авторов.
     else:  # Если обработчик получил GET запрос, значит в ответ нужно просто "нарисовать" формы.
-        author_formset = AuthorFormSet(prefix='authors')  # Инициализируем формсет и ниже передаём его в контекст шаблона.
+        author_formset = AuthorFormSet(
+            prefix='authors')  # Инициализируем формсет и ниже передаём его в контекст шаблона.
         book_formset = BookFormSet(prefix='books')
 
     return render(request, 'manage_authors.html', {'author_formset': author_formset,
                                                    # 'book_formset': book_formset
                                                    })
 
+
 class FriendsList(ListView):
     model = Friend
     context_object_name = 'friends'
     template_name = 'list_friends.html'
+
 
 class TestFormView(FormView):
     template_name = 'test_form.html'
@@ -63,16 +69,22 @@ class TestFormView(FormView):
         form.send_message()
         return super().form_valid(form)
 
+
 class AuthorEdit(CreateView):
     model = Author
-    form_class = AuthorForm
+    # form_class = AuthorForm
     success_url = reverse_lazy('p_library:author_list')
     template_name = 'author_edit.html'
 
 
 class AuthorList(ListView):
-    model = Author
+    # model = Author
+    # context_object_name = 'ob'
     template_name = 'author_list.html'
+
+    def get_queryset(self):
+        return Author.objects.all()
+
 
 class AuthorUpdate(UpdateView):
     model = Author
@@ -81,17 +93,20 @@ class AuthorUpdate(UpdateView):
     # fields = ['full_name', 'birth_year', 'country']
     template_name = 'author_edit.html'
 
+
 class AuthorDelete(DeleteView):
     model = Author
     form_class = AuthorForm
     success_url = reverse_lazy('p_library:author_list')
     template_name = 'author_delete.html'
 
+
 class AuthorUpdate(UpdateView):
     model = Author
     form_class = AuthorForm
     success_url = reverse_lazy('p_library:author_list')
     template_name = 'author_edit.html'
+
 
 class AuthorDelete(DeleteView):
     model = Author
@@ -225,8 +240,8 @@ def book_decrement(request):
     else:
         return redirect('/index/')
 
-class HomePageView(TemplateView):
 
+class HomePageView(TemplateView):
     template_name = "class-base.html"
 
     def get_context_data(self, **kwargs):
@@ -240,12 +255,15 @@ class HomePageView(TemplateView):
 class PublisherList(ListView):
     model = PublishingHouse
     template_name = 'publishinghouse_list.html'
-    paginate_by = 1 # Количество выводов элементов
+    paginate_by = 1  # Количество выводов элементов
+
     def put(self, request):
         data = json.loads(request.body)
         publisher = self.model(**data)
         publisher.save()
+
     context_object_name = 'new'
+
 
 class PublisherList2(View):
     model = PublishingHouse
@@ -259,10 +277,12 @@ class PublisherList2(View):
         publisher = self.model(**data)
         publisher.save()
 
+
 # через DetailView
 
 class PublisherList3(DetailView):
     model = Author
+
     # context_object_name = "new_name"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

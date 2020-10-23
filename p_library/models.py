@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 class Author(models.Model):
     full_name = models.TextField(max_length=100)
@@ -27,6 +26,7 @@ class Book(models.Model):
     year_release = models.SmallIntegerField()
     price = models.FloatField()
     copy_count = models.SmallIntegerField(default=1)
+    cover = models.ImageField(upload_to='cover/%M/%S', blank=True, verbose_name='Загрузить обложку')
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, verbose_name="Вербос_нэйм")
     publishing_house = models.ForeignKey(PublishingHouse, on_delete=models.CASCADE, verbose_name="Издательство",
                                          null=True, related_name="books", blank=True)

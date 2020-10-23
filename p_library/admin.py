@@ -14,7 +14,7 @@ class BookAdmin(admin.ModelAdmin):
     #     return obj.publishing_house.full_name
 
     list_display = ('title', 'author_full_name', 'publishing_house')
-    fields = (('title', 'description'), 'year_release', 'author', 'price', 'publishing_house')
+    fields = (('title', 'description'), 'year_release', 'author', 'price', 'publishing_house', 'cover')
     exclude = ('ISBN',)
 
 @admin.register(Author)

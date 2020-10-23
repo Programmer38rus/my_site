@@ -3,6 +3,8 @@ from django.urls import path
 from .views import AuthorEdit, AuthorList, books_author_create_many, AuthorUpdate, AuthorDelete, HomePageView, \
     PublisherList, PublisherList3, TestFormView, base_view, FriendsList
 
+from django.conf import settings
+from django.conf.urls.static import static
 app_name = 'p_library'
 
 urlpatterns = [
@@ -17,5 +19,5 @@ urlpatterns = [
     # path('<name:name>/', PublisherList3.as_view(), name="publisher-detail"),
     path('test_form', TestFormView.as_view()),
     path('base', base_view),
-    path('friends', FriendsList.as_view(), name='friend_list')
-]
+    path('friends', FriendsList.as_view(), name='friend_list'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
