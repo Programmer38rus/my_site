@@ -77,14 +77,16 @@ class AuthorEdit(CreateView):
     template_name = 'author_edit.html'
 
 
-class AuthorList(ListView):
-    # model = Author
+class AuthorList(TemplateView):
+    model = Author
     # context_object_name = 'ob'
     template_name = 'author_list.html'
 
-    def get_queryset(self):
-        return Author.objects.all()
-
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["authors"] = Author.objects.all()
+        context["books"] = Book.objects.all()
+        return context
 
 class AuthorUpdate(UpdateView):
     model = Author
