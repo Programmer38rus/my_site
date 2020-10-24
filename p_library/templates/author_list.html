@@ -11,16 +11,29 @@
     <a class="btn btn-primary mt-2" href="/author/create">Создать нового автора</a>
     <table class="table">
         <ul>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Автор</th>
+                    <th>Год рождения</th>
+                    <th>Книги</th>
+                </tr>
+            </thead>
             <tbody>
-            {% for book in books %}
+            {% for author in authors %}
                <tr>
-                <th><img class="col-3" src="{{ media }}{{ book.author.face }}"></th>
-                <th class="align-middle"><li class="list-unstyled"><a href="{{ book.author.id }}"> {{ book.author.full_name }}</a></li></th>
-                <th class="align-middle">{{ book.author.birth_year }}</th>
+                <th><img class="col-5" src="{{ media }}{{ author.face }}"></th>
+                <th class="align-middle"><li class="list-unstyled"><a href="{{ author.id }}"> {{ author.full_name }}</a></li></th>
+                <th class="align-middle">{{ author.birth_year }}</th>
                 <th class="align-middle">
-                    <ul>
-                        <li>{{ book.title }}</li>
-                    </ul>
+                    {% for book in books %}
+                        <dd>
+                        {% if author.id == book.author_id %}
+
+                            <li class="list-unstyled"><img class="col-2" src="{{ media }}{{ book.cover }}" alt="">{{ book.title }}</li>
+                        {% endif %}
+                        </dd>
+                    {% endfor %}
                 </th>
                </tr>
             {% endfor %}
