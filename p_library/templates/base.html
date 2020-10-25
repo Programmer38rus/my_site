@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Base</title>
-</head>
-<body>
-<h1>base.html</h1>
-{% block edit %}
+{% extends 'base_parths/header.html' %}
+
+
+{% block content %}
+    {% lorem %}
 {% endblock %}
-</body>
-</html>
+
+{% block footer %}
+<footer class="page-footer font-small blue bg-secondary fixed-bottom">
+  <div class="footer-copyright text-center py-3">Это футер</div>
+</footer>
+{% endblock %}
+
