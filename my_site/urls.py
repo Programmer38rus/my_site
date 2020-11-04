@@ -19,10 +19,12 @@ from p_library import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.books_list),
     path('index/', views.index),
     path('index/book_increment/', views.book_increment),
     path('index/book_decrement/', views.book_decrement),
     path('pubhouse/', views.publishing_house),
     path('', include('p_library.urls')),
+    path('', include('authorization.urls')),
+    # for allauth
+    path('accounts/', include('allauth.urls')),
 ]

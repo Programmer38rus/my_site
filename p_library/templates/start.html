@@ -1,0 +1,33 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Start</title>
+</head>
+<body>
+    {% if username %}
+        <div class="d-flex justify-content-center align-items-center w-100 h-100 ">
+            <div class="d-flex flex-column">
+                <h3>Вы вошли как {{ social_account.extra_data.name}}</h3>
+                <a href="profile/">Посетить профиль</a>
+                <a href="logout_github/">Выйти</a>
+            </div>
+        </div>
+    {% else %}
+        <div class="d-flex justify-content-center align-items-center w-100 h-100 ">
+            <div class="d-flex flex-column">
+                <a href="login/">Войти</a>
+                <div class="d-flex row">
+                    <p>или</p>
+                    <a href="registration/">зарегистрироваться</a>
+                </div>
+                <a href="login_github/">Войти под уч.зап. GitHub</a>
+                {{ username }}
+            </div>
+        </div>
+    {% endif %}
+
+</body>
+</html>

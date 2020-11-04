@@ -1,3 +1,6 @@
+from allauth.socialaccount.models import SocialAccount
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from p_library.models import Author, Book, PublishingHouse, Friend
 from django.http import HttpResponse
@@ -88,6 +91,7 @@ class AuthorList(TemplateView):
         context["books"] = Book.objects.all()
         return context
 
+
 class AuthorUpdate(UpdateView):
     model = Author
     form_class = AuthorForm
@@ -115,13 +119,6 @@ class AuthorDelete(DeleteView):
     success_url = reverse_lazy('p_library:author_list')
     template_name = 'author_delete.html'
 
-
-def books_list(request):
-    list = []
-    books = Book.objects.all()
-    for i in books:
-        list.append(i.title)
-    return HttpResponse(list)
 
 
 def publishing_house(request):
