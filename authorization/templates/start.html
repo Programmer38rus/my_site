@@ -10,9 +10,10 @@
     {% if username %}
         <div class="d-flex justify-content-center align-items-center w-100 h-100 ">
             <div class="d-flex flex-column">
-                <h3>Вы вошли как {{ social_account.extra_data.name}}</h3>
-                <a href="profile/">Посетить профиль</a>
+                <h3>Вы вошли как {{ user }}</h3>
+                <a href="profile/{{ user }}">Посетить профиль</a>
                 <a href="logout_github/">Выйти</a>
+                {{ objets }}
             </div>
         </div>
     {% else %}

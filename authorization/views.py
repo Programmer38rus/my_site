@@ -1,36 +1,39 @@
+from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView
+from django.views.generic import ListView, FormView, UpdateView
 
-from p_library.forms import AuthorForm
+from authorization.forms import ProfileCreateForm
+from .models import UserProfile
 
 # Create your views here.
 
 
-class Start(ListView):
-    template_name = 'start.html'
-    queryset = {}
+# class Start(ListView):
+#     template_name = 'start.html'
+#     queryset = {}
+#
+#     # def dispatch(self, request, *args, **kwargs):
+#     #     print(request.user.is_authenticated)
+#     #     return HttpResponse(render(request,'start.html'))
+#     def get_context_data(self, *, object_list=None, **kwargs):
+#         context = super().get_context_data(*kwargs)
+#         if self.request.user.is_authenticated:
+#             context['username'] = self.request.user.username
+#             # context['social_account'] = SocialAccount.objects.get(provider='github', user=self.request.user)
+#             return context
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     print(request.user.is_authenticated)
-    #     return HttpResponse(render(request,'start.html'))
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(*kwargs)
-        if self.request.user.is_authenticated:
-            context['username'] = self.request.user.username
-            # context['social_account'] = SocialAccount.objects.get(provider='github', user=self.request.user)
-            return context
 
+def Start(request):
+    context = {}
+    if request.user.is_authenticated:
+        context['username'] = request.user.username
+        # context['social_account'] = SocialAccount.objects.get(provider='github', user=request.user)
+        # print(context['social_account'].extra_data)
+    return render(request, 'start.html', context)
 
-# def Start(request):
-#     context = {}
-#     if request.user.is_authenticated:
-#         context['username'] = request.user.username
-#         context['social_account'] = SocialAccount.objects.get(provider='github', user=request.user)
-#         print(context['social_account'].extra_data)
-#     return render(request, 'start.html', context )
 
 class RegisterView(FormView):
     form_class = UserCreationForm
@@ -45,18 +48,21 @@ class RegisterView(FormView):
         login(self.request, authenticate(username=username, password=raw_password))
         return super(RegisterView, self).form_valid(form)
 
+
 class CreateProfile(FormView):
-    form_class = AuthorForm
+    form_class = ProfileCreateForm
     template_name = 'create-profile.html'
+    success_url = reverse_lazy('authorization:start')
 
     def form_valid(self, form):
-        print(dir(form))
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     context = super().get_context_data(*kwargs)
-    #     # json_data = {
-    #     #     'name': self.request
-    #     # }
-    #     print(dir(self.request))
-    #     # new_user = SocialAccount.objects.create(provider='custom', user=self.request.user)
-    #     return context
+        instance = form.save(commit=False)
+        instance.user = self.request.user
+        instance.save()
+        return super(CreateProfile, self).form_valid(form)
 
+class UpdateProfile(UpdateView):
+    model = UserProfile
+    form_class = ProfileCreateForm
+    # pk_url_kwarg = 'user'
+    success_url = reverse_lazy('authorization:start')
+    template_name = 'profile.html'
