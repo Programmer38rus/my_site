@@ -1,31 +1,17 @@
 from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView, UpdateView
+from django.views.generic import ListView, FormView, UpdateView, View
 
 from authorization.forms import ProfileCreateForm
 from .models import UserProfile
 
+
 # Create your views here.
-
-
-# class Start(ListView):
-#     template_name = 'start.html'
-#     queryset = {}
-#
-#     # def dispatch(self, request, *args, **kwargs):
-#     #     print(request.user.is_authenticated)
-#     #     return HttpResponse(render(request,'start.html'))
-#     def get_context_data(self, *, object_list=None, **kwargs):
-#         context = super().get_context_data(*kwargs)
-#         if self.request.user.is_authenticated:
-#             context['username'] = self.request.user.username
-#             # context['social_account'] = SocialAccount.objects.get(provider='github', user=self.request.user)
-#             return context
-
-
 def Start(request):
     context = {}
     if request.user.is_authenticated:
@@ -60,9 +46,22 @@ class CreateProfile(FormView):
         instance.save()
         return super(CreateProfile, self).form_valid(form)
 
+
 class UpdateProfile(UpdateView):
     model = UserProfile
     form_class = ProfileCreateForm
-    # pk_url_kwarg = 'user'
     success_url = reverse_lazy('authorization:start')
     template_name = 'profile.html'
+
+def update_profile(request):
+    user = SocialAccount.objects.get(provider='github', user_id=request.user)
+    if request.method == 'POST':
+        user.extra_data['name'] = request.POST['name']
+        user.extra_data['age'] = request.POST['age']
+        user.extra_data['location'] = request.POST['location']
+        user.save()
+        return HttpResponseRedirect(reverse_lazy('authorization:start'))
+    else:
+        context = {'user': user}
+        return render(request, 'profile_github.html', context)
+

@@ -6,8 +6,8 @@
     <meta charset="UTF-8">
     <title>Create-Profile</title>
 </head>
-<body>
-<form method="post" class="d-flex flex-column">
+<body class="d-flex justify-content-center align-items-center ">
+<form method="post" class="d-flex flex-column w-50">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Сохранить">

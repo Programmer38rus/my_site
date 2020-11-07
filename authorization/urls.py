@@ -1,7 +1,7 @@
 # from django.contrib.auth import login
 from django.contrib.auth.views import LoginView as login
 from django.urls import path
-from .views import Start, RegisterView, CreateProfile, UpdateProfile
+from .views import Start, RegisterView, CreateProfile, update_profile, UpdateProfile
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -21,4 +21,5 @@ urlpatterns = [
   path('registration/', RegisterView.as_view(), name='registration'),
   path('create_profile/', CreateProfile.as_view(), name='create_profile'),
   path('profile/<int:pk>/', UpdateProfile.as_view(), name='profile'),
+  path('profile_git/', update_profile, name='profile'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

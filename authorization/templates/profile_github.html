@@ -7,9 +7,11 @@
     <title>Create-Profile</title>
 </head>
 <body class="d-flex justify-content-center align-items-center">
-<form method="post" class="d-flex flex-column w-50">
+<form  method="post" class="d-flex flex-column w-50">
     {% csrf_token %}
-    {{ form }}
+    <input type="text" name="name" value="{{ user.extra_data.name }}" placeholder="Имя">
+    <input type="text" name="age" value="{{ user.extra_data.age }}" placeholder="Возраст">
+    <input type="text" name="location" value="{{ user.extra_data.location }}" placeholder="Страна">
     <input type="submit" value="Сохранить">
 </form>
 </body>

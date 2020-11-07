@@ -7,11 +7,20 @@
     <title>Start</title>
 </head>
 <body>
-    {% if username %}
+    {% if user.profile.name %}
         <div class="d-flex justify-content-center align-items-center w-100 h-100 ">
             <div class="d-flex flex-column">
-                <h3>Вы вошли как {{ user }}</h3>
-                <a href="profile/{{ user }}">Посетить профиль</a>
+                <h3>Вы вошли как {{ user.profile.name }}</h3>
+                <a href="profile/{{user.profile.id}}">Посетить профиль</a>
+                <a href="logout_github/">Выйти</a>
+                {{ objets }}
+            </div>
+        </div>
+    {% elif username %}
+        <div class="d-flex justify-content-center align-items-center w-100 h-100 ">
+            <div class="d-flex flex-column">
+                <h3>Вы вошли как {{ username }}</h3>
+                <a href="profile_git/">Посетить профиль</a>
                 <a href="logout_github/">Выйти</a>
                 {{ objets }}
             </div>
@@ -20,10 +29,7 @@
         <div class="d-flex justify-content-center align-items-center w-100 h-100 ">
             <div class="d-flex flex-column">
                 <a href="login/">Войти</a>
-                <div class="d-flex row">
-                    <p>или</p>
-                    <a href="registration/">зарегистрироваться</a>
-                </div>
+                <p>или <a href="registration/">зарегистрироваться</a></p>
                 <a href="login_github/">Войти под уч.зап. GitHub</a>
                 {{ username }}
             </div>
