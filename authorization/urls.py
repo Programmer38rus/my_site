@@ -1,11 +1,7 @@
-# from django.contrib.auth import login
-from django.contrib.auth.views import LoginView as login
 from django.urls import path
 from .views import Start, RegisterView, CreateProfile, update_profile, UpdateProfile
-
 from django.conf import settings
 from django.conf.urls.static import static
-app_name = 'authorization'
 
 # for allauth
 from allauth.account.views import (
@@ -13,9 +9,17 @@ from allauth.account.views import (
   logout as logout_github,
 )
 
+from django.contrib.auth.views import  (
+  LoginView as login,
+  LogoutView as logout,
+)
+
+app_name = 'authorization'
+
 urlpatterns = [
   path('', Start, name='start'),
   path('login/', login.as_view(template_name='login.html'), name='login'),
+  path('logout/', logout.as_view(), name='logout'),
   path('login_github/', login_github, name='login_git'),
   path('logout_github/', logout_github, name='logout_git'),
   path('registration/', RegisterView.as_view(), name='registration'),

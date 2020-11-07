@@ -2,6 +2,7 @@ from allauth.socialaccount.models import SocialAccount
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+# from django.contrib.auth.views import LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -15,9 +16,13 @@ from .models import UserProfile
 def Start(request):
     context = {}
     if request.user.is_authenticated:
-        context['username'] = request.user.username
-        # context['social_account'] = SocialAccount.objects.get(provider='github', user=request.user)
-        # print(context['social_account'].extra_data)
+        try:
+            context['social_account'] = SocialAccount.objects.get(provider='github', user=request.user)
+        except Exception:
+            pass
+        finally:
+            context['username'] = request.user.username
+
     return render(request, 'start.html', context)
 
 
@@ -53,6 +58,7 @@ class UpdateProfile(UpdateView):
     success_url = reverse_lazy('authorization:start')
     template_name = 'profile.html'
 
+
 def update_profile(request):
     user = SocialAccount.objects.get(provider='github', user_id=request.user)
     if request.method == 'POST':
@@ -64,4 +70,3 @@ def update_profile(request):
     else:
         context = {'user': user}
         return render(request, 'profile_github.html', context)
-

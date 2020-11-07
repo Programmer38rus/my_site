@@ -12,17 +12,17 @@
             <div class="d-flex flex-column">
                 <h3>Вы вошли как {{ user.profile.name }}</h3>
                 <a href="profile/{{user.profile.id}}">Посетить профиль</a>
-                <a href="logout_github/">Выйти</a>
+                <a href="logout/">Выйти</a>
                 {{ objets }}
             </div>
         </div>
     {% elif username %}
         <div class="d-flex justify-content-center align-items-center w-100 h-100 ">
             <div class="d-flex flex-column">
-                <h3>Вы вошли как {{ username }}</h3>
+                <img src="{{ social_account.extra_data.avatar_url }}" alt="">
+                <h3>Вы вошли как {{ social_account.extra_data.name }}</h3>
                 <a href="profile_git/">Посетить профиль</a>
                 <a href="logout_github/">Выйти</a>
-                {{ objets }}
             </div>
         </div>
     {% else %}
